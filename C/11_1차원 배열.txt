@@ -31,3 +31,14 @@ str[8] = 0;
 
 scanf는 문장을 입력받는 것이 아니며 공백을 포함하는 하나의 문장을 통째로 입력 받는 함수는 따로 존재
 ------------------------------------------------------------
+배열 길이와 관련된 예시
+
+배열의 길이를 확인하는 방법(sizeof)
+char str[] = "good morning!";
+int arrlen = sizeof(str)/sizeof(char);
+
+배열을 끝까지 출력하는 방법
+char str[] = "good morning!";
+int idx = 0;
+while(str[idx]!=0)	// while(str[idx]!='\0') 과 동일
+	printf("%c", str[idx++]);
