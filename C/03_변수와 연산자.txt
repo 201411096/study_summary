@@ -1,0 +1,83 @@
+------------------------------------------------------------
+연산자 우선순위 (순위, 연산기호, 연산자, 결합방향)
+
+1. ->
+() 함수호출 
+[] 인덱스 
+-> 간접지정
+. 직접지정
+++(postfix) 후위 증가
+--(postfix) 후위 감소
+
+2. <-
+++(prefix) 전위 증가
+--(prefix) 전위 감소
+sizeof  바이트 단위 크기 계산
+~ 비트 단위 not
+! 논리 not
+-, + 부호연산
+& 주소연산
+* 간접지정 연산
+
+3. <-
+(casting) 자료형 변환
+
+4. ->
+*, /, % 곱셈, 나눗셈 연산
+
+5. ->
++, - 덧셈, 뺄셈
+
+6. ->
+<<, >> 비트이동
+
+7. ->
+<, >, <=, >= 대소비교
+
+8. ->
+==, != 동등비교
+
+9. ->
+& 비트 AND
+
+10. ->
+^ 비트 XOR
+
+11. ->
+| 비트 OR
+
+12. ->
+&& 논리 AND
+
+13. ->
+|| 논리 OR
+
+14. <-
+? : 조건연산
+
+15. <-
+=, +=, -=, *=, /=, %=, <<=, >>=, &=, ^=, |= 대입연산
+
+16. ->
+, 콤마연산
+------------------------------------------------------------
+C언어의 표준 키워드(Keyword)
+기능정 의미가 정해져서 C언어의 문법을 구성하는 단어들
+
+auto	_Bool	break	case
+char	_Complex	const	continue
+default	do	double	else
+enum	extern	float	for
+goto	if	_Imaginary	return
+resrtict	short	signed	sizeof
+static	struct	switch	typedef
+union	unsigned	void	volatile
+while			
+
+
+
+
+
+
+
+
