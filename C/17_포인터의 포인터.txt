@@ -11,4 +11,80 @@ printf("%p	%p\n", p2, &p2);
 
 포인터 변수 대상의 call-by-reference
 
+void SwapIntPtr1(int* p1, int* p2) {
+	int* temp = p1;
+	p1 = p2;
+	p2 = temp;
+}
+
+void SwapIntPtr2(int** p1, int** p2) {
+	int* temp = *p1;	// 여기서 *p1은 매개변수로 넘어온 ptr1과 동일하다고 볼 수 있음
+	*p1 = *p2;
+	*p2 = temp;
+}
+
+int main(void) 
+{
+	int num1 = 10, num2 = 20;
+	int* ptr1, * ptr2;				// int *ptr1, ptr2; 이런식으로 선언할 경우 ptr2는 단순히 int형으로 됨
+	ptr1 = &num1, ptr2 = &num2;
+	printf("*ptr1, *ptr2 : %d %d\n", *ptr1, *ptr2); 	// 10 20
+
+	SwapIntPtr1(ptr1, ptr2);
+	printf("*ptr1, *ptr2 : %d %d\n", *ptr1, *ptr2); 	// 10 20 (포인터 변수에 담겨진 주소값이 복사되어서 넘겨졌기 떄문에 값이 변경되지 않음, ptr1과 p1은 아무런 연관성이 존재하지 않음)
+
+	SwapIntPtr2(&ptr1, &ptr2);
+	printf("*ptr1, *ptr2 : %d %d\n", *ptr1, *ptr2);	 // 20 10 (포인터 변수를 가리키는 주소값이 복사됨, *p1은 ptr1과 동일함)
+	
+
+	return 0;
+}
 ------------------------------------------------------------------------------------------------------------------------
+다중 포인터 변수와 포인터의 필요성
+
+* 연산자가 둘 이상 사용되어 선언되는 포인터 변수를 '다중 포인터 변수'라 한다.
+...
+삼중 포인터가 사용되는 예는 그리 많지 않으며, 구현 시 등장한다면 포인터의 오용 및 남용이 아닌지 확인해 볼 필요가 있다.
+
+이중 포인터 변수의 활용
+int * maxPtr;
+int * minPtr;
+int arr[5];
+위의 변수들을 이용하여 maxPtr에는 가장 큰 값이 저장된 배열요소의 주소 값이 ... ...
+
+void func1(int * arr, int size, int **maxptr, int **minptr)
+{
+	//** maxptr = arr[0];				// 초기화시에 *maxptr에 대한 값이 없어서 문제가 생기는 것 같음(중간값이 비어있음)
+	//** minptr = arr[0];				// ㄴ ex) doubleptr -> ptr(비어있어서?..) -> var
+	* maxptr = &arr[0];
+	* minptr = &arr[0];
+	for (int i = 0; i < size; i++)
+	{
+		if (arr[i] > **maxptr) {
+			// **maxptr = arr[i];
+			*maxptr = &arr[i];
+		}
+		if (arr[i] < **minptr) {
+			// **minptr = arr[i];
+			*minptr = &arr[i];
+		}
+	}
+
+}
+
+int main(void)
+{
+	int* maxPtr = NULL;
+	int* minPtr = NULL;
+	int arr[5];
+
+	for (int i = 0; i < 5; i++)
+		scanf("%d", &arr[i]);				// vscode19 scanf 사용 문제 : 프로젝트 속성 -> C/C++ -> 일반 -> SDL 검사 아니요
+
+	func1(arr, sizeof(arr) / sizeof(int), &maxPtr, &minPtr);
+
+	printf("max %d, min %d", *maxPtr, *minPtr);
+	
+
+	return 0;
+}
