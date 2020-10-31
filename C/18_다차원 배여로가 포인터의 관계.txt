@@ -1,0 +1,32 @@
+--------------------------------------------------------------------------------
+2차원 배열이름의 포인터 형
+int arr[10];	// arr은 int형 포인터
+void SimpleFunc(int * ptr) { . . . }	//  1차원 배열을 받을 수 있는 함수
+
+int * arr[10];	// 포인터 배열(포인터들이 담겨져 있는 배열)
+void SimpleFunc2(int ** ptr) { . . . }	// 포인터 배열을 받을 수 있는 함수
+
+2차원 배열 이름이 가리키는 것들
+int arr2d[3][3];
+printf("%d \n", arr2d);				// arr2d의 주소값 출력 
+printf("%d \n", arr2d[0]);			// arr2d의 주소값과 같은 주소 출력 
+printf("%d \n\n", &arr2d[0][0]);	// arr2d의 주소값과 같은 주소 출력 
+	
+printf("%d \n", arr2d[1]);			// arr2d[1]의 주소값 출력 
+printf("%d \n\n", &arr2d[1][0]);	// arr2d[1]의 주소값과 같은 주소 출력 
+	
+// arr2d와 arr2d[0]은 둘 다 arr2d[3][3]의 첫번쨰 요소를 가리키지만, arr2d는 첫번쨰 요소를 가리키되 배열 전체를 의미하고, arr2d[0]은 첫번째 요소를 가리키되 1행만을 의미한다. 
+printf("sizeof(arr2d) : %d", sizeof(arr2d));		// 36(4 * 3 * 3)
+printf("sizeof(arr2d[0]) : %d\n", sizeof(arr2d[0])); // 12(4 * 3 * 1)
+printf("sizeof(arr2d[1]) : %d\n", sizeof(arr2d[1])); // 12(4 * 3 * 1)
+
+배열이름 기반의 포인터 연산
+
+1차원 배열이름 기반의 포인터 연산
+int iarr[3];
+double darr[7];
+printf("%p %p\n", iarr, iarr+1);	// 000000000062FE10 000000000062FE14 ( iarr의 주소값, iarr의 주소값+4(sizeof(int)) ) 
+printf("%p %p\n", darr, darr+1); 	// 000000000062FDD0 000000000062FDD8 ( darr의 주소값, darr의 주소값+8(sizeof(double)) )
+
+
+--------------------------------------------------------------------------------
