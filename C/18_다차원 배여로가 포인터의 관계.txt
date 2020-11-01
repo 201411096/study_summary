@@ -184,4 +184,22 @@ int main(void)
 	return 0;
 }
   	 
---------------------------------------------------------------------------------
+포인터 변수 선언 예시_01
+int * arr1[5];	// int형 포인터 변수로 이뤄진 1차원 배열(포인터 배열)
+int * arr2[3][5];	// int*형 포인터 변수로 이뤄진 2차원 배열
+int ** ptr1= arr1;		// 예시 부분
+int * (*ptr2)[5] = arr2;	// 예시 부분
+포인터 변수 선언 예시_02
+void SimpleFunc(int * ptr1, int * ptr2, int (*ptr3)[4], int (*ptr4)[4]){ ... }	// 예시 부분
+int arr1[3];
+int arr2[4];
+int arr3[3][4];
+int arr4[2][4];
+SimpleFunc(arr1, arr2, arr3, arr4)
+포인터 변수 선언 예시_03
+void SimpleFunc(int ** ptr1, int * (*ptr2)[5], int *** ptr3, int*** (*ptr4)[5]){ ... }	// 예시 부분
+int* arr1[3];
+int* arr2[3][5];
+int** arr3[5];
+int** arr4[3][5];
+SimpleFunc(arr1, arr2, arr3, arr4)
