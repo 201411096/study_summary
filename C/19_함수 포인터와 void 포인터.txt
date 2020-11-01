@@ -11,3 +11,83 @@
 
 적절한 함수 포인터 변수의 선언
 함수 포인터 변수에는 반환형 정보와 매개변수 선언의 정보가 모두 표현되어 있어야 한다.
+void SimpleAdder(int n1, int n2)
+{
+	printf("%d + %d = %d\n", n1, n2, n1+n2);
+}
+void ShowString(char * str)
+{
+	printf("%s\n", str);
+}
+int main(void)
+{
+	char * str = "Sample String ..."; // char str [] = "Sample String ...";
+	int num1=10, num2=20;
+	
+	void (*fptr1)(int, int) = SimpleAdder;
+	void (*fptr2)(char *) = ShowString;
+	
+	// 함수 포인터에 의한 호출 
+	fptr1(num1, num2);
+	fptr2(str);	
+	return 0;
+}
+매개변수로 전달되는 함수 포인터
+int WhoIsFirst(int n1, int n2, int (*cmp)(int, int )) // int WhoIsFirst(int n1, int n2, int (*cmp)(int n1, int n2)) 이런식으로도 선언이 가능 
+{
+	return cmp(n1, n2);
+}
+int YongerFirst(int n1, int n2)
+{
+	if(n1 > n2)
+		return n2;
+	else if(n1 < n2)
+		return n1;
+	else
+		return 0;
+}
+int OlderFirst(int n1, int n2)
+{
+	if(n1 < n2)
+		return n2;
+	else if(n1 > n2)
+		return n1;
+	else
+		return 0;
+}
+int main(void)
+{
+	int age1 = 20, age2 = 30;
+	printf("더 나이 든 사람의 나이 : %d\n", WhoIsFirst(age1, age2, OlderFirst));
+	printf("더 젊은  사람의 나이 : %d", WhoIsFirst(age1, age2, YongerFirst));
+	
+	return 0;
+}
+
+형(Type)이 존재하지 않는 void 포인터
+void형 포인터 변수는 함수의 주소 값을 포함한 어떠한 변수의 주소값이든 담을 수 있다.
+이러한 void형 포인터의 단점으로는 아무런 포인터 연산도 하지 못하며, 값의 변경이나 참조가 불가능한 것이다.
+void SimpleFunc(void)
+{
+	printf("Simple Func...");
+}
+int main(void)
+{
+	int num=20;
+	void * ptr;
+	
+	ptr=&num;
+	printf("%p %p\n", &num, ptr);
+//	printf("num : %d \n", *ptr);	//void형 포인터는 참조를 할 수 없다. -> 컴파일 에러 
+	
+	ptr=SimpleFunc;
+	printf("%p %p\n", ptr, SimpleFunc);
+//	ptr(); 							//void형 포인터는 참조를 할 수 없다. -> 컴파일 에러 
+}
+--------------------------------------------------------------------------------
+main 함수로의 인자 전달
+main함수의 정의형태에는 두가지가 있다.
+int main(void){ . . . }
+int main(int argc, char * argv[]){ . . . }
+
+main함수를 통한 인자의 전달
