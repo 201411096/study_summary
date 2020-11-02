@@ -167,4 +167,36 @@ int main(void)
 }
 --------------------------------------------------------------------------------
 입출력 이외의 문자열 관련 함수
+
+반환형 size_t의 일반적인 선언
+typedef unsigned int size_t;	// unsigned int의 선언을 size_t로 대신할 수 있음
+
+문자열의 길이를 반환하는 함수: strlen
+#include <string.h>
+size_t strlen(const char * s);
+// 전달된 문자열의 길이를 반환하되, 널 문자는 길이에 포함되지 않는다.
+
+문자열을 복사하는 함수들: strcpy, strncpy
+#include <string.h>
+char * strcpy(char * dest, const char * src);
+char * strncpy(char * dest, const char * src, size_t n);
+// 복사된 문자열의 주소 값 반환
+
+문자열을 덧붙이는 함수들: strcat, strncat
+#include <string.h>
+char * strcat(char * dest, const char * src);
+char * strncat(char * dest, const char * src, size_t n);
+// 덧붙여진 문자열의 주소 값 반환
+
+문자열을 비교하는 함수들: strcmp, strncmp
+#include <string.h>
+int strcmp(const char * s1, const char * s2);
+int strncmp(const char * s1, const char * s2, size_t n);
+// 두 문자열의 내용이 같으면 0, 같지 않으면 0이 아닌 값을 반환
+
+그 이외의 변환 함수들
+#include <stdlib.h>
+int atoi(const char * str);	// 문자열의 내용을 int형으로 반환
+long atol(const char * str);	// 문자열의 내용을 long형으로 반환
+double atof(const char * str);// 문자열의 내용을 double형으로 반환
 --------------------------------------------------------------------------------
