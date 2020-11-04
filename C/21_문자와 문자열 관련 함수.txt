@@ -176,11 +176,32 @@ typedef unsigned int size_t;	// unsigned int의 선언을 size_t로 대신할 �
 size_t strlen(const char * s);
 // 전달된 문자열의 길이를 반환하되, 널 문자는 길이에 포함되지 않는다.
 
+char str [] = "1234567";
+printf("str length ... %d\n", strlen(str)); // 7
+str[6]=0;
+printf("str length ... %d\n", strlen(str)); // 6
+str[3]='\0';
+printf("str length ... %d\n", strlen(str)); // 3 (널 문자를 제외한 문자열의 길이를 반환함 
+
 문자열을 복사하는 함수들: strcpy, strncpy
 #include <string.h>
 char * strcpy(char * dest, const char * src);
 char * strncpy(char * dest, const char * src, size_t n);
 // 복사된 문자열의 주소 값 반환
+
+char str1[20] = "1234567890";
+char str2[20];
+char str3[5];
+
+strcpy(str2, str1);	// src(str1)을 dst(src2)에 복사 
+puts(str2);	//1234567890
+
+strncpy(str3, str1, sizeof(str3));	// src(str1)을 dst(src3)에 복사 
+puts(str3);	//12345 ... ...	=> 문자열의 끝에 널문자가 존재해야하는데, 없어서 문제가 생김 
+
+strncpy(str3, str1, sizeof(str3)-1);	// src(str1)을 dst(src3)에 복사 
+str3[sizeof(str3)-1]=0;		// 문자열의 마지막을 null문자로 채움 
+puts(str3);	//1234
 
 문자열을 덧붙이는 함수들: strcat, strncat
 #include <string.h>
