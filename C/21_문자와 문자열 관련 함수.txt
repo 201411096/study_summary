@@ -203,6 +203,20 @@ strncpy(str3, str1, sizeof(str3)-1);	// src(str1)을 dst(src3)에 복사
 str3[sizeof(str3)-1]=0;		// 문자열의 마지막을 null문자로 채움 
 puts(str3);	//1234
 
+strcpy, strncpy가 있는 이유
+#include <stdio.h>
+#include <string.h>
+int main(void)
+{
+	char str1[20]="abc";
+	char str2[20];
+//	str2 = "abc";			//컴파일 에러 -> 초기화 이후에서의 문자열 저장에서는 strcpy, strncpy 함수를 사용해야한다. 
+	strncpy(str2, str1, sizeof(str1));	// strncpy(dest, src, size_t) 에서 dest의 사이즈가 작을경우 마지막에 null문자를 넣어줘야 한다. 
+	puts(str1);
+	puts(str2);
+	return 0;
+}
+
 문자열을 덧붙이는 함수들: strcat, strncat
 #include <string.h>
 char * strcat(char * dest, const char * src);
