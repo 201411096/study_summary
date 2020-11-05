@@ -81,5 +81,63 @@ int main(void)
 배열이 구조체의 멤버로 선언될 수 있듯이, 포인터 변수도 구조체의 멤버가 될 수 있다.
 "TYPE형 구조체 변수의 멤버로 TYPE형 포인터 변수를 둘 수 있다.
 
+struct point{
+	int xpos;
+	int ypos;
+};
+struct circle{
+	double radius;
+	struct point * center;
+};
+int main(void)
+{
+	struct point cen = {2, 7};
+	double rad = 5.5;
+	
+	struct circle ring ={rad, &cen};
+	printf("원의 반지름 : %g \n", ring.radius);
+	printf("원의 중심 : %d %d \n", (ring.center)->xpos, (ring.center)->ypos );
+	return 0;
+}
+
+struct point{
+	int xpos;
+	int ypos;
+	struct point * ptr;
+};
+int main(void)
+{
+	struct point pos1 ={1,1};
+	struct point pos2 ={2,2};
+	struct point pos3 ={3,3};
+	pos1.ptr = &pos2;
+	pos2.ptr = &pos3;
+	pos3.ptr = &pos1;
+	
+	puts("점의 연결관계...");
+	printf("[%d, %d]와 [%d %d] 연결\n", pos1.xpos, pos1.ypos, pos1.ptr->xpos, pos1.ptr->ypos);
+	printf("[%d, %d]와 [%d %d] 연결\n", pos2.xpos, pos2.ypos, pos2.ptr->xpos, pos2.ptr->ypos);
+	printf("[%d, %d]와 [%d %d] 연결\n", pos3.xpos, pos3.ypos, pos3.ptr->xpos, pos3.ptr->ypos);
+	return 0;
+}
+
 구조체 변수의 주소 값과 첫번쨰 멤버의 주소값
 "구조체 변수의 주소 값은 구조체 변수의 첫번째 멤버의 주소값과 동일하다"
+struct point{
+	int xpos;
+	int ypos;
+	struct point * ptr;
+};
+int main(void)
+{
+	struct point pos1 ={1,1};
+	struct point pos2 ={2,2};
+	struct point pos3 ={3,3};
+	pos1.ptr = &pos2;
+	pos2.ptr = &pos3;
+	pos3.ptr = &pos1;
+	
+	printf("%p %p %p %p\n", &pos1, &(pos1.xpos), &(pos1.ypos), &(pos1.ptr));	//구조체의 주소와 첫번쨰 멤버와의 주소값이 일치함 
+	printf("%p %p %p %p\n", &pos2, &(pos2.xpos), &(pos2.ypos), &(pos1.ptr));	//구조체의 주소와 첫번쨰 멤버와의 주소값이 일치함 
+	return 0;
+}
