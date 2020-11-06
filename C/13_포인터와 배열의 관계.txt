@@ -41,8 +41,12 @@ printf("%d ", *ptr); ptr++; 				//22
 printf("%d ", *ptr); ptr--; 				//33
 printf("%d ", *ptr); ptr--; 				//22
 printf("%d ", *ptr);					//11
+// 배열과 포인터의 크기 
+printf("sizeof(arr) : %d\n", sizeof(arr));	//12 sizeof(int) * 3
+printf("sizeof(ptr) : %d\n", sizeof(ptr));	//8	(c언어의 포인터 크기는 운영체제의 비트 수에 따라 달라짐 32비트 -> 32비트(4바이트), 64비트 -> 64비트(8바이트) 
 
 중요한 결론! arr[i] == *(arr+i)
+[]는 연산자이며 arr[3]이라 사용한 것은 사실 *(arr+3)으로 바뀌어서 처리가 된다는 의미이다.
 int arr[3] = { 11, 22, 33 };
 int* ptr = arr;
 // ptr에 저장된 값이 arr의 주소 값이기 때문에 다음 네 문장은 사실상 값은 것이며 실제로 모두 동일한 출력결과를 보인다.
