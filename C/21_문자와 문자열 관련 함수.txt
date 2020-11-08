@@ -17,13 +17,13 @@ stderr	표준 출력 스트림	모니터 대상으로 출력 -> 표준 출력 �
 #include <stdio.h>
 int putchar(int c);
 int fputc(int c, FILE * stream);
-// 함수호출 성공 시 쓰여진 문자정보가, 실패시 EOF 반환
+	=> 함수호출 성공 시 쓰여진 문자정보가, 실패시 EOF 반환
 
 문자 입력 함수 : getchar, fgetc
 #include <stdio.h>
 int getchar(void);
 int fgetc(FILE * stream);
-// 파일의 끝에 도달하거나 함수호출 실패 시 EOF 반환
+	=> 파일의 끝에 도달하거나 함수호출 실패 시 EOF 반환
 
 int main(void)
 {
@@ -62,7 +62,7 @@ int main(void)
 하지만 위의 두 함수가 반환하는 값 중 하나인 EOF는 -1로 정의된 상수이며, 반환형이 char형이라면 char를 unsigned char로 처리하는 컴파일러를 만났을 경우,
 문제가 생길 수도 있다.
 
-+문자 단위 입출력 함수의 존재이유
+++문자 단위 입출력 함수의 존재이유
 printf와 scanf 함수는 본래 서식지정을 통해서 새로운 입출력의 형태를 구성하는 함수로서, 
 화려한 기능을 제공하는 만큼 사용하는 메모리 공간이 크고, 해야할 연산의 양도 많아서 상대적으로 속도가 느리다.
 
@@ -101,7 +101,7 @@ int main(void)
 #include <stdio.h>
 int puts(const char * s);
 int puts(const char * s, FILE * stream);
-// 성공 시 음수가 아닌 값을, 실패 시 EOF 반환
+	=> 성공 시 음수가 아닌 값을, 실패 시 EOF 반환
 
 char * str1 = "Simple String1";
 char str2 [] = "Simple String2";
@@ -113,7 +113,7 @@ puts("\n"); 	// puts()는 \n이 추가되기 떄문에 이 문장은 두번의 �
 #include <stdio.h>
 char * gets(char *s);			// 할당 받지 않은 메모리 공간을 침범하는 오류가 발생하는 경우가 많음, fgets 함수를 호출하는 것이 권장됨
 char * gets(char *s, int n, FILE * stream);
-// 파일의 끝에 도달하거나 함수호출 실패 시 NULL 포인터 반환
+	=> 파일의 끝에 도달하거나 함수호출 실패 시 NULL 포인터 반환
 
 char str[7];
 for(int i=0; i<3; i++)
@@ -140,7 +140,7 @@ printf, scanf, fputc, fgetc 모두 ANSI C의 표준에서 정의된 표준 입�
 만약 콘솔 입출력을 하는 상황이면서, 범용 OS(windows, linux)를 사용하는 경우라면 stdout을 대상으로 호출할 일은 많지 않다.
 #include <stdio.h>
 int fflush(FILE * stream);
-// 함수호출 성공 시 0, 실패 시 EOF 반환
+	=> 함수호출 성공 시 0, 실패 시 EOF 반환
 
 입력버퍼를 비우는 방법
 '출력버퍼의 비워짐'이 저장된 데이터가 목적지로 전송됨을 의미한다면, '입력버퍼의 비워짐'은 데이터의 소멸을 의미한다.
@@ -174,7 +174,7 @@ typedef unsigned int size_t;	// unsigned int의 선언을 size_t로 대신할 �
 문자열의 길이를 반환하는 함수: strlen
 #include <string.h>
 size_t strlen(const char * s);
-// 전달된 문자열의 길이를 반환하되, 널 문자는 길이에 포함되지 않는다.
+	=> 전달된 문자열의 길이를 반환하되, 널 문자는 길이에 포함되지 않는다.
 
 char str [] = "1234567";
 printf("str length ... %d\n", strlen(str)); // 7
@@ -187,7 +187,7 @@ printf("str length ... %d\n", strlen(str)); // 3 (널 문자를 제외한 문자
 #include <string.h>
 char * strcpy(char * dest, const char * src);
 char * strncpy(char * dest, const char * src, size_t n);
-// 복사된 문자열의 주소 값 반환
+	=> 복사된 문자열의 주소 값 반환
 
 char str1[20] = "1234567890";
 char str2[20];
@@ -221,7 +221,7 @@ int main(void)
 #include <string.h>
 char * strcat(char * dest, const char * src);
 char * strncat(char * dest, const char * src, size_t n);
-// 덧붙여진 문자열의 주소 값 반환
+	=> 덧붙여진 문자열의 주소 값 반환
 
 char str1[20] = "First~";
 char str2[20] = "Second"; 
@@ -237,7 +237,7 @@ puts(str3);	 	// fputs()와 달리 puts()함수는 자동으로 개행을 시켜
 #include <string.h>
 int strcmp(const char * s1, const char * s2);
 int strncmp(const char * s1, const char * s2, size_t n);
-// 두 문자열의 내용이 같으면 0, 같지 않으면 0이 아닌 값을 반환
+	=> 두 문자열의 내용이 같으면 0, 같지 않으면 0이 아닌 값을 반환
 
 char str1[10] = "ABC";
 char str2[10] = "ABB";
