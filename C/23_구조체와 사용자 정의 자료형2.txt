@@ -166,6 +166,88 @@ int main(void)
 구조체 vs 공용체
 정의방식에서의 유일한 차이점은 struct 선언을 하느냐, union 선언을 하느냐에 있다.
 하지만 각각의 변수가 메모리 공간에 할당되는 방식과 접근의 결과에는 많은 차이가 있다.
+typedef struct sbox		//구조체 sbox
+{
+	int mem1;
+	int mem2;
+	double mem3;
+ }SBox;
+ typedef union ubox		// 공용체 ubox 
+ {
+ 	int mem1;
+ 	int mem2;
+ 	double mem3;
+ }UBox;
+int main(void)
+{
+	SBox sbx;
+	UBox ubx;
+	printf("%p %p %p \n", &sbx.mem1, &sbx.mem2, &sbx.mem3);
+	printf("%p %p %p \n", &ubx.mem1, &ubx.mem2, &ubx.mem3);	//	구조체와 달리, 전부 같은 주소가 나옴 
+	printf("%d %d\n", sizeof(SBox), sizeof(UBox));			// 16 8	(구조체 sbx의 크기, 공용체 ubox의 크기) 
+	
+	ubx.mem1 = 20;
+	printf("%d \n", ubx.mem1);	//20
+	printf("%d \n", ubx.mem2);	//20
+	printf("%d \n", ubx.mem3);	//26
+	
+	ubx.mem3 = 7.15;			// 실수를 저장하면서 덮어써버렸기 때문에, 상위 4바이트를 읽어서 출력하면 알 수 없는 값이 출려된다. 
+	printf("%d \n", ubx.mem1);		// 알수없는값 
+	printf("%d \n", ubx.mem2);		// 알수없는값 
+	printf("%g \n", ubx.mem3);		// 7.15	
+	return 0;
+}
+
+공용체의 유용함은 다양한 접근방식을 제공하는데 있다.
+하나의 메모리 공간을 둘 이상의 방식으로 접근할 수 있다.
+공용체는 임베디드 시스템이나 커널 모드 디바이스 드라이버 등에서 주로 사용하며 보통은 거의 쓰지 않습니다.
 --------------------------------------------------------------------------------
 열거형(Enumerated Type)의 정의와 의미
+열거형이라는 것도 구조체나 공용체와 마찬가지로 자료형을 정의하는 방법으로 사용이 된다.
+따라서 열겨형 기반의 자료형 정의방법은 구조체 및 공용체와 유사하고 정의된 열거형 기반의 변수 선언 방법은 구조체 및 공용체와 완전히 동일하다.
+
+열거형의 정의와 변수의 선언
+typedef enum syllable
+{
+	Do=1, Re=2, Mi=3, Fa=4, So=5, La=6, Ti=7
+} Syllable;
+void Sound(Syllable sy)
+{
+	switch(sy)
+	{
+		case Do:
+			puts("Do ...");return;
+		case Re:
+			puts("Re ...");return;
+		case Mi:
+			puts("Mi ...");return;
+		case Fa:
+			puts("Fa ...");return;
+		case So:
+			puts("So ...");return;
+		case La:
+			puts("La ...");return;
+		case Ti:
+			puts("Ti ...");return;
+	}
+}
+int main(void)
+{
+	Syllable tone;
+	for(tone=Do; tone<=Ti; tone+=1)
+		Sound(tone);
+	printf("%d\n", Do);	// 1
+	printf("%d\n", Ti);	// 7
+	return 0;
+}
+
+열거형 상수의 값이 결정되는 방식
+열거형을 정의하는데 있어서 상수의 값을 명시하지 않으면, 열거형 상수의 값은 0에서부터 시작에서 1씩 증가하는 형태로 결정이 된다.
+enum color {RED, BLUE, WHITE, BLACK} Color; 			// 바로 아래 문장과 동일한 문장
+enum color {RED=0, BLUE=1, WHITE=2, BLACK=3} Color;
+enum color {RED=3, BLUE, WHITE=6, BLACK} Color; 		// 바로 아래 문장과 동일한 문장
+enum color {RED=3, BLUE=4, WHITE=6, BLACK=7} Color;
+열겨형의 유용함은 이름있는 상수의 정의를 통한 의미의 부여에 있다.
+구조체와 공용체는 자료형의 정의에 의미가 있는 반면에, 열거형은 변수를 선언하기 위해서 자료형을 정의하는 것이다.
+열거형의 유용함은 둘 이상의 연관이 있는 이름을 상수로 선언함으로서 프로그램의 가독성을 높이는데 있다.
 --------------------------------------------------------------------------------
