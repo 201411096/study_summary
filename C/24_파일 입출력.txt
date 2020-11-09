@@ -12,6 +12,60 @@ FILE * fopen(const char * filename, const char * mode);
 1. fopen함수가 호출되면 FILE 구조체 변수가 생성된다.
 2. 생성된 FILE 구조체 변수에는 파일에 대한 정보가 담긴다.
 3. FILE 구조체의 포인터는 사실상 파일을 가리키는 '지시자'의 역할을 한다.
+
+스트림의 소멸을 요청하는 fclose 함수
+#include <stdio.h>
+int fclose(FILE * stream);
+	=> 성공 시 O, 실패 시 EOF를 반환
+fclose 함수의 호출을 통해서 개방되었던 파일을 닫을 수 있고, 닫아야 하는 이유에는 두가지가 있다.
+1. 운영체제가 할당한 자원의 반환(주로 메모리)
+2. 버퍼링되었떤 데이터의 출력(출력 버퍼를 비우는 효과)
+
+출력버퍼를 비우는 fflush함수
+#include <stdio.h>
+int fflush(FILE * stream);
+	=> 함수 호출 성공 시 O, 실패 시 EOF 반환
+
+입출력 버퍼를 비우는 것
+1. 출력버퍼를 비운다는 것은 출력버퍼에 저장된 데이터를 목적지로 전송한다는 의미(파일 스트림에 사용하면서 출력버퍼를 비울경우 출력된 데이터가 그대로 파일에 저장됨)
+2. 입력버퍼를 비운다는 것은 입력버퍼에 저장된 데이터를 소멸시킨다는 의미
+3. fflush 함수는 출력버퍼를 비우는 함수이다.
+4. fflush 함수는 입력버퍼를 대상으로 호출할 수 없다. (입력버퍼를 비우는 함수는 필요가 없다 -> 언제든지 읽을 수 있을 뿐만 아니라, 해당 상황이 특별히 존재하지 않기 떄문)
+
+예시
+#include <stdio.h>
+#include <string.h>
+void FileWrite(char * fileName, char * fileContent)
+{
+	FILE * fp = fopen(fileName, "wt");
+	if(fp==NULL){
+		puts("파일오픈 실패!");
+		return -1; 
+	}
+	fputs(fileContent, fp);
+	fclose(fp);
+}
+void FileRead(char * fileName)
+{
+	FILE * fp = fopen(fileName, "rt");
+	if(fp==NULL){
+		puts("파일오픈 실패!");
+		return -1; 
+	}
+	char ch = 0;
+	while(ch!=-1)
+	{
+		ch = fgetc(fp);
+		putchar(ch);
+	}	
+	fclose(fp);
+}
+int main(void)
+{
+	FileWrite("data.txt", "abcde\nbbbbb\nccccc");
+	FileRead("data.txt");
+	return 0;
+}
 --------------------------------------------------------------------------------
 파일의 개방 모드(Mode)
 --------------------------------------------------------------------------------

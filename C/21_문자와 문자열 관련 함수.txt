@@ -100,7 +100,7 @@ int main(void)
 문자열 출력 함수: puts, fputs
 #include <stdio.h>
 int puts(const char * s);
-int puts(const char * s, FILE * stream);
+int fputs(const char * s, FILE * stream);
 	=> 성공 시 음수가 아닌 값을, 실패 시 EOF 반환
 
 char * str1 = "Simple String1";
@@ -112,7 +112,7 @@ puts("\n"); 	// puts()는 \n이 추가되기 떄문에 이 문장은 두번의 �
 문자열 입력 함수: gets, fgets
 #include <stdio.h>
 char * gets(char *s);			// 할당 받지 않은 메모리 공간을 침범하는 오류가 발생하는 경우가 많음, fgets 함수를 호출하는 것이 권장됨
-char * gets(char *s, int n, FILE * stream);
+char * fgets(char *s, int n, FILE * stream);
 	=> 파일의 끝에 도달하거나 함수호출 실패 시 NULL 포인터 반환
 
 char str[7];
