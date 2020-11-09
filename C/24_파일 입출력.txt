@@ -53,7 +53,7 @@ void FileRead(char * fileName)
 		return -1; 
 	}
 	char ch = 0;
-	while(ch!=-1)
+	while(ch!=-1)	// EOF까지 읽어드림
 	{
 		ch = fgetc(fp);
 		putchar(ch);
