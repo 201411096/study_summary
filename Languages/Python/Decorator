@@ -1,0 +1,19 @@
+def sampleFunc():
+    print('... sampleFunc ...')
+
+def decoratorFunc(func):
+    def wrapper(*args, **kwargs):
+        print('prehandling ...')
+        func()
+        print('posthandling ...')
+    return wrapper
+
+@decoratorFunc
+def func():
+    print('func')
+
+func()
+# 실행 결과
+# prehandling ...
+# func
+# posthandling ...
