@@ -41,3 +41,26 @@ n = next(g); print(n)  # 3
 # 1 2 3
 for x in gen():
     print(x)
+    
+========== example_02 ==========
+def pump():
+    numbers = [1,2,3,4]
+    try:
+        for number in numbers:
+            yield number
+            print('have sent ', number)
+    except GeneratorExit:
+        print("GeneratorExit")
+
+for num in pump():
+    print(num)
+    if num == 3:
+        break
+"""
+1
+have sent  1
+2
+have sent  2
+3
+GeneratorExit
+"""
