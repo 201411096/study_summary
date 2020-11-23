@@ -24,6 +24,7 @@ Generator 함수는 함수 안에 yield를 사용하여 데이터를 하나씩 �
 Generator 함수가 처음 호출되면, 그 함수 실행 중 처음으로 만나는 yield에서 값을 리턴한다. 다시 호출되면, 직전에 실행되었던 yield 문 다음부터 다음 yield문을 만날 때까지의 문장들을 실행하게 된다.
 이러한 Generator함수를 변수에 할당하면 해당 변수는 generator 클래스 객체가 된다.
 
+========== example_01 ==========
 # Generator Function
 def gen():
     yield 1
@@ -41,3 +42,26 @@ n = next(g); print(n)  # 3
 # 1 2 3
 for x in gen():
     print(x)
+    
+========== example_02 ==========
+def pump():
+    numbers = [1,2,3,4]
+    try:
+        for number in numbers:
+            yield number
+            print('have sent ', number)
+    except GeneratorExit:
+        print("GeneratorExit")
+
+for num in pump():
+    print(num)
+    if num == 3:
+        break
+"""
+1
+have sent  1
+2
+have sent  2
+3
+GeneratorExit
+"""
